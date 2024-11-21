@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Interactive WebGIS and Basin Mapping Application by Jeremia Kelvin Sihotang" />
+    <meta name="author" content="Jeremia Kelvin Sihotang" />
+    <title>Basin Producing in Indonesia</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Font Awesome icons (free version) -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+            <span class="d-block d-lg-none">Jeremia Kelvin Sihotang</span>
+            <span class="d-none d-lg-block">
+                <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="diriku.png" 
+                     alt="Profile picture of Jeremia Kelvin Sihotang" />
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#introduction">Introduction of Basin</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#map">Basin Map Indonesia</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#conclusion">Conclusion</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container-fluid p-0">
+        <!-- About Section -->
+        <section class="resume-section" id="about">
+            <div class="resume-section-content">
+                <h1 class="mb-0">
+                    Jeremia Kelvin
+                    <span class="text-primary">Sihotang</span>
+                </h1>
+                <div class="subheading mb-5">
+                    South Jakarta · Jakarta Raya, 12720 · (+62) 856-6906-1480 ·
+                    <a href="mailto:jeeenot@gmail.com">jeeenot@gmail.com</a>
+                </div>
+                <p class="lead mb-5">
+                    A fresh graduate in Geophysical Engineering with expertise in GIS, geophysics, and geological data modeling 
+                    and interpretation. Eager to apply technical skills in analyzing and processing spatial and subsurface data 
+                    to support innovative, sustainable solutions across various industries. Proficient in WebGIS development and 
+                    participatory mapping techniques.
+                </p>
+                <div class="social-icons">
+                    <a class="social-icon" href="https://www.linkedin.com/in/jeremia-kelvin-sihotang-b545b121b/" target="_blank" aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="social-icon" href="https://github.com/KelvinBadas" target="_blank" aria-label="GitHub Profile">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <hr class="m-0" />
+
+        <!-- Introduction of Basin -->
+        <section class="resume-section" id="introduction">
+            <div class="resume-section-content">
+                <h2 class="mb-5">Introduction to Basins</h2>
+                <p>Exploration geophysics begins with understanding sedimentary basins. The formation and geological history of these basins are crucial for identifying potential resources such as oil, gas, and minerals. To conduct further exploration, it's essential to first study the geology and the processes that led to the formation of these basins. The data provided here is sourced from the <em><strong>Peta Cekungan Sedimen Indonesia, Badan Geologi 2020</strong></em>.</p>
+            </div>
+        </section>
+        <hr class="m-0" />
+
+        <!--Basin Map Indonesia-->
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Basin Map Indonesia</title>
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                <style>
+                    /* Style peta */
+                    #map {
+                        height: 100vh; /* Memastikan peta mengisi seluruh tinggi layar */
+                        width: 100%; /* Memastikan peta mengisi seluruh lebar layar */
+                    }
+                </style>
+            </head>
+            <body>
+                <!-- Bagian untuk menampilkan peta -->
+                <section class="resume-section" id="map">
+                    <div class="resume-section-content">
+                        <h2 class="mb-5">Map Producing Basin</h2>
+                        <!-- Div untuk peta Leaflet -->
+                        <div id="map"></div>
+                    </div>
+                </section>
+            
+                <script>
+                    // Membuat peta dan menetapkan pusat dan tingkat zoom
+                    var map = L.map('map').setView([2.75, 115.5], 5); // Koordinat pusat peta dan tingkat zoom untuk Indonesia
+                
+                    // Menambahkan tile layer dari OpenStreetMap
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                
+                    // Fungsi untuk menentukan warna berdasarkan status basin
+                    function getColor(basinStat) {
+                        switch (basinStat) {
+                            case 'Producing Basin': return 'red';
+                            case 'Discovery Basin': return 'blue';
+                            case 'Prospective Basin': return 'green';
+                            case 'Unexplored Basin': return 'orange';
+                            default: return 'gray'; // Default color if no classification matches
+                        }
+                    }
+                
+                    // Fungsi untuk menampilkan pop-up dengan informasi atribut dari GeoJSON
+                    function onEachFeature(feature, layer) {
+                        if (feature.properties) {
+                            // Menyusun konten popup dengan hanya informasi yang relevan
+                            var popupContent = '<h4>Basin Information</h4>';
+                            popupContent += '<b>Basin Name:</b> ' + feature.properties.Basin_name + '<br>';
+                            popupContent += '<b>Status:</b> ' + feature.properties.Basin_stat + '<br>';
+                            popupContent += '<b>Area (km^2):</b> ' + feature.properties.Area_sq_km + '<br>';
+                            popupContent += '<b>Description:</b> ' + feature.properties.Basin_desc + '<br>';
+                
+                            // Menambahkan konten popup ke layer
+                            layer.bindPopup(popupContent);
+                        }
+                    }
+                
+                    // Fungsi untuk menentukan gaya (warna) untuk masing-masing basin
+                    function style(feature) {
+                        return {
+                            fillColor: getColor(feature.properties.Basin_stat), // Set color based on the 'Basin_stat' property
+                            weight: 2,
+                            opacity: 1,
+                            color: 'black', // Border color
+                            dashArray: '3',
+                            fillOpacity: 0.7
+                        };
+                    }
+                
+                    // Variabel untuk menyimpan layer berdasarkan status basin
+                    var producingBasinLayer = L.layerGroup();
+                    var discoveryBasinLayer = L.layerGroup();
+                    var prospectiveBasinLayer = L.layerGroup();
+                    var unexploredBasinLayer = L.layerGroup();
+                    var allBasinsLayer = L.layerGroup(); // Layer untuk menampilkan semua jenis basin
+                
+                    // Menggunakan Fetch untuk memuat file GeoJSON
+                    fetch('basin_id.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Memfilter dan menambahkan layer berdasarkan 'Basin_stat'
+                            data.features.forEach(function(feature) {
+                                var layer = L.geoJSON(feature, {
+                                    onEachFeature: onEachFeature,
+                                    style: style
+                                });
+                
+                                // Menambahkan layer sesuai dengan status basin
+                                if (feature.properties.Basin_stat === 'Producing Basin') {
+                                    producingBasinLayer.addLayer(layer);
+                                } else if (feature.properties.Basin_stat === 'Discovery Basin') {
+                                    discoveryBasinLayer.addLayer(layer);
+                                } else if (feature.properties.Basin_stat === 'Prospective Basin') {
+                                    prospectiveBasinLayer.addLayer(layer);
+                                } else if (feature.properties.Basin_stat === 'Unexplored Basin') {
+                                    unexploredBasinLayer.addLayer(layer);
+                                }
+                
+                                // Menambahkan semua jenis basin ke layer allBasinsLayer
+                                allBasinsLayer.addLayer(layer);
+                            });
+                
+                            // Menambahkan kontrol layer
+                            L.control.layers({
+                                "Producing Basin": producingBasinLayer,
+                                "Discovery Basin": discoveryBasinLayer,
+                                "Prospective Basin": prospectiveBasinLayer,
+                                "Unexplored Basin": unexploredBasinLayer,
+                                "All Basins": allBasinsLayer // Opsi untuk menampilkan semua basin
+                            }).addTo(map);
+                
+                            // Menambahkan layer default (semua basin)
+                            allBasinsLayer.addTo(map);
+                        })
+                        .catch(error => {
+                            console.error('Error loading the GeoJSON file:', error);
+                        });
+                </script>
+                                        
+        <!-- Conclusion-->
+        <section class="resume-section" id="conclusion">
+            <div class="resume-section-content">
+                <h2 class="mb-5">Conclusion</h2>
+                    
+                <div class="subheading mb-3">Workflow</div>
+                <ul class="fa-ul mb-0">
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Data Acquisition from Field Surveys (Using GPS, Total Station, and Geophysical Methods)
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Data Preprocessing and Integration in ArcGIS (Importing Survey Data, Geophysical Measurements)
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Geospatial Data Processing in ArcGIS (Creating Spatial Layers, Buffering, and Analysis)
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Visualizing Results in ArcGIS (Creating Maps for Geophysical Data Interpretation)
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Collaboration with Multidisciplinary Teams for Data Interpretation (Sharing Maps and Results)
+                    </li>
+                    <li>
+                        <span class="fa-li"><i class="fas fa-check"></i></span>
+                        Continuous Development in Geospatial Software and Data Analysis Techniques (Training and Practice)
+                    </li>
+                </ul>
+                <p class="mt-4">
+                    Data used in this workflow comes from various sources:
+                    <ul>
+                        <li><strong>Field Surveys:</strong> Geophysical tools and survey instruments such as GPS, Total Station, and Geoelectrical methods were used to collect data.</li>
+                        <li><strong>Geophysical Measurements:</strong> Gravity, Geomagnetic, and other subsurface exploration data.</li>
+                        <li><strong>ArcGIS Data:</strong> Spatial layers and geospatial data integrated within ArcGIS for analysis and visualization.</li>
+                    </ul>
+                </p>
+            </div>
+        </section>
+
+        <hr class="m-0" />
+
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
